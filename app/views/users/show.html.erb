@@ -1,0 +1,8 @@
+<% if logged_in? %>
+<%= @user.name %>, <%= @user.email %> <br>
+Created at: <%= @user.created_at %> <br>
+Updated at: <%= @user.updated_at %>.
+Go to home page: <%= link_to "Home", root_path %>
+<% else %>
+You don't have access to this! :O
+<% end %>
