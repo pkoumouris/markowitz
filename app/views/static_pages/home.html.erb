@@ -18,4 +18,8 @@
 	<%= link_to "Log in", login_path %>
 <% end %>
 
+<% if logged_in? && current_user.admin %>
+	
+<% end %>
+
 </html>

@@ -1,0 +1,13 @@
+Ok <%= current_user.name %>, add in the parameters of your new portfolio:
+
+<h1>Create a new portfolio</h1>
+<%= form_for(:newPortfolio) do |f| %>
+	Title:
+	<%= f.text_field :title %><br>
+	Description:
+	<%= f.text_field :description %><br>
+	Initial allocation:
+	<%= f.text_field :initial %><br>
+
+	<%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,11 @@
+<% if current_user.admin? %>
+	<% @users.each do |user| %>
+		<%= link_to user.name, user %>
+		<% if current_user.admin? && !current_user?(user) %>
+			| <%= link_to "delete", user, method: :delete %>
+		<% end %>
+		<br>
+	<% end %>
+<% else %>
+	<p>Sorry, but you are not authorised to view this.</p>
+<% end %>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticker: MyText
+  title: MyText
+  description: MyText
+  price: 9.99
+  expreturn: 9.99
+  stddev: 9.99
+  idiosync: 9.99
+  dividend: 9.99
+  divyield: 9.99
+  numshares: 
+  mktcorr: 9.99
+
+two:
+  ticker: MyText
+  title: MyText
+  description: MyText
+  price: 9.99
+  expreturn: 9.99
+  stddev: 9.99
+  idiosync: 9.99
+  dividend: 9.99
+  divyield: 9.99
+  numshares: 
+  mktcorr: 9.99

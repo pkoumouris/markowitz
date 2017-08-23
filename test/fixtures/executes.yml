@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  portfolio: one
+  securityID: 
+  timeblock: 
+  volume: 9.99
+  status: 
+
+two:
+  portfolio: two
+  securityID: 
+  timeblock: 
+  volume: 9.99
+  status: 

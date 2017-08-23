@@ -1,8 +1,69 @@
-<% if logged_in? %>
-<%= @user.name %>, <%= @user.email %> <br>
-Created at: <%= @user.created_at %> <br>
-Updated at: <%= @user.updated_at %>.
-Go to home page: <%= link_to "Home", root_path %>
+<!-- SHOWS A USER -->
+<% if logged_in? && current_user?(@user) && current_user.activated || current_user.admin %>
+	Welcome, <%= @user.name %>.<br>
+	<h2>Your position</h2>
+	Your balance is: <%= number_to_currency(@user.balanceAUD ) %><br><br>
+
+	<% $cash = 0.00 %>
+	<% @user.portfolios.each do |portfolio| %>
+		<% $cash += portfolio.cashAUD %>
+	<% end %>
+
+	Your portfolio cash is: <%= number_to_currency($cash) %><br><br>
+
+	<% $value = 0.00 %>
+	<% @user.portfolios.each do |portfolio| %>
+		<% portfolio.assets.each do |asset| %>
+			<% $value += Security.find(asset.sec).price * asset.volume %>
+		<% end %>
+	<% end %>
+	The value of your portfolio assets is: <%= number_to_currency($value) %><br><br>
+	<h3><b>Your total value is: <%= number_to_currency($value + $cash + @user.balanceAUD) %></b></h3><br>
+
+	<h2>Your details</h2>
+
+	Your email is: <%= @user.email %><br>
+	Created at: <%= @user.created_at %> <br>
+	Updated at: <%= @user.updated_at %>.<br>
+	Go to home page: <%= link_to "Home", root_path %><br>
+	You have this many portfolios: <%= @user.portfolios.count %><br>
+	Change details: <%= link_to "Settings", edit_user_path(current_user) %><br><br>
+
+	<h2>Transfer money to your portfolios</h2>
+	<%= form_for(:cashTrans) do |f| %>
+		Select the portfolio to transfer from/to:
+		<select name="cashTrans[portfolio]">
+			<option value="">Please select a portfolio.</option>
+			<% @user.portfolios.each do |portfolio| %>
+				<option value="<%= portfolio.id %>"><%= portfolio.title %></option>
+			<% end %>
+		</select><br>
+		<%= f.label :value, "Value of transfer: $" %>
+		<%= f.text_field :value %><br>
+		<%= f.submit "Submit", class: "btn btn-primary" %>
+	<% end %>
+
+	<h2>Your portfolios</h2>
+	<% $value = 0.0 %>
+	<% @user.portfolios.each do |portfolio| %>
+		<b><h3><%= link_to portfolio.title, portfolio_path(portfolio) %></h3></b>
+		<% portfolio.assets.each do |asset| %>
+			<% $value += Security.find(asset.sec).price * asset.volume %>
+		<% end %>
+		<% $value += portfolio.cashAUD %>
+		The total value of this portfolio is: <b><%= number_to_currency($value) %></b>
+		<% $value = 0.0 %>
+		<br><br><br>
+	<% end %>
+	<% if current_user.admin %>
+		<br>You're currently logged in as admin.
+	<% end %>
+	<b><%= link_to "Create a new portfolio", new_portfolio_path %></b>
+	<br><br>
+	<%= link_to "Home", root_path %>
+<% elsif logged_in? && current_user?(@user) %>
+	Your account is not yet activated. Please see your email account at: 
+	<%= @user.email %>
 <% else %>
-You don't have access to this! :O
+	You don't have access to this! :O
 <% end %>

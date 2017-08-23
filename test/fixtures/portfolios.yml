@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  type: 
+  TOI: 9.99
+  cashAUD: 9.99
+  user: one
+
+two:
+  description: MyText
+  type: 
+  TOI: 9.99
+  cashAUD: 9.99
+  user: two

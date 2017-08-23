@@ -1,0 +1,59 @@
+<!-- SHOWS A PORTFOLIO -->
+<% if logged_in? && @portfolio.user.id == current_user.id %>
+	<h1>Portfolio: <%= @portfolio.title %></h1>
+	This portfolio is owned by: <%= @portfolio.user.name %><br><br>
+	Portfolio balance: <b><%= number_to_currency(@portfolio.cashAUD) %></b><br>
+	<h2>Portfolio Assets</h2>
+	<% $value = 0.00 %>
+	<% @portfolio.assets.each do |asset| %>
+		<%= Security.find(asset.sec).ticker %> 
+		<%= Security.find(asset.sec).title %>
+		(<%= number_to_currency( Security.find(asset.sec).price ) %>): 
+		<b><%= number_to_currency(Security.find(asset.sec).price * asset.volume) %></b>
+		<%= link_to "Go to asset>", Security.find(asset.sec) %>
+		<% $value += Security.find(asset.sec).price * asset.volume %><br>
+	<% end %><br>
+	<b>This portfolio's assets are worth:</b>
+	<b><%= number_to_currency($value) %></b><br><br>
+	<h3>
+		Total portfolio value: <b><%= number_to_currency($value + @portfolio.cashAUD) %></b>
+	</h3>
+	<%= link_to "Back to your page", current_user %>
+
+	<h2>Change portfolio</h2>
+
+	<%= form_for(:execute) do |f| %>
+		Transaction type:
+		<select name="execute[transType]">
+			<option value="">Please select your transaction type.</option>
+			<option value="1">Buy/sell a specific security by volume</option>
+			<option value="2">Buy/sell a specific security by value</option>
+			<option value="3">Add/subtract cash</option>
+			<option value="4">Tether to another portfolio by value</option>
+			<option value="5">Image another portfolio by value</option>
+		</select>
+		<br>
+		<h4><b>If you are buying/selling an existing portfolio</b></h4>
+		Portfolio ID:
+		<%= f.number_field :transArg %>
+		<br>
+		<h4><b>If you are buying/selling an individual asset</b></h4>
+		Security ID:
+		
+		<select name="execute[sec]">
+			<option value="">Please select a security.</option>
+			<% Security.all.each do |security| %>
+				<option value="<%= security.id %>"><%= security.ticker %></option>
+			<% end %>
+		</select>
+		<h4>In any case, please enter the volume:</h4>
+		<%= f.label :volume, "Volume" %>
+		<%= f.text_field :volume %>
+		<br>
+		<%= f.submit "Submit", class: "btn btn-primary" %>
+	<% end %>
+
+<% else %>
+	Sorry, you are not permitted to see this portfolio.<br><br>
+	<%= link_to "Back to your page", current_user %>
+<% end %>

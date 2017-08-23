@@ -1,0 +1,9 @@
+<h1>
+	<%= @security.ticker %> <%= @security.title %>
+</h1>
+<h2>
+	Price: <%= number_to_currency(@security.price) %>
+</h2>
+<p>
+	<%= @security.description %>
+</p>

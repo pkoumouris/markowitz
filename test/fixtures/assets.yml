@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sec: 1
+  portfolio: one
+  ticker: MyText
+  title: MyText
+
+two:
+  sec: 1
+  portfolio: two
+  ticker: MyText
+  title: MyText
