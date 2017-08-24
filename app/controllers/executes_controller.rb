@@ -57,26 +57,26 @@ class ExecutesController < ApplicationController
 					end
 
 					if ( _status == 0 || _status == 1 )
+						
 						if (_volume > 0.0)
 
-							if (@Xportfolio.cashAUD >= _volume * _price * _buy_coef)
-
-								if (!_asset_id_in_portfolio)
+							if (@Xportfolio.cashAUD < _volume * _price * _buy_coef)
+								_volume = (@Xportfolio.cashAUD / _price) / 1.001
+							end
+							
+							if (!_asset_id_in_portfolio)
 									
-									new_asset = @Xportfolio.assets.create(sec: _security, volume: _volume, ticker: @Xsecurity.ticker, title: @Xsecurity.title)
-									_asset_id_in_portfolio = new_asset.id	
+								new_asset = @Xportfolio.assets.create(sec: _security, volume: _volume, ticker: @Xsecurity.ticker, title: @Xsecurity.title)
+								_asset_id_in_portfolio = new_asset.id	
 
-								end
-								@Xportfolio.assets.find(_asset_id_in_portfolio).update_attributes(volume: _volume)
-								@Xportfolio.update_attributes(cashAUD: @Xportfolio.cashAUD - _volume*_price*_buy_coef)
-								order.update_attributes(status: 3)
-
-							else
-								puts("Insufficient funds")
-								order.update_attributes(status: 5)
 							end
 
+							@Xportfolio.assets.find(_asset_id_in_portfolio).update_attributes(volume: _volume)
+							@Xportfolio.update_attributes(cashAUD: @Xportfolio.cashAUD - _volume*_price*_buy_coef)
+							order.update_attributes(status: 3)
+
 						elsif (_asset_id_in_portfolio)
+
 							_volume *= -1
 
 							if (@Xportfolio.assets.find(_asset_id_in_portfolio).volume > _volume)

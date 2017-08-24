@@ -56,14 +56,20 @@ class UsersController < ApplicationController
       @user.portfolios.each do |portfolio|
         if _pf_id == portfolio.id
           _approved = true
+          puts("hola1")
         end
+      end
+
+      if (_value > 0 && (@user.balanceAUD - _value < @user.initial_investment * 0.05))
+        puts("hola2")
+        _approved = false
       end
 
       if (_approved)
         if (_value > 0 && @user.balanceAUD > _value)
           @user.update_attributes(balanceAUD: @user.balanceAUD - _value)
           Portfolio.find(_pf_id).update_attributes(cashAUD: Portfolio.find(_pf_id).cashAUD + _value)
-        elsif (_value < 0 && Portfolio.find(_pf_id).cashAUD > -1*_value)
+        elsif (_value < 0 && Portfolio.find(_pf_id).cashAUD >= -1*_value)
           Portfolio.find(_pf_id).update_attributes(cashAUD: Portfolio.find(_pf_id).cashAUD + _value)
           @user.update_attributes(balanceAUD: @user.balanceAUD - _value)
         else
@@ -71,7 +77,7 @@ class UsersController < ApplicationController
         end
 
       else
-        puts("User does not have permission to access this portfolio")
+        puts("Did not work.")
 
       end
 

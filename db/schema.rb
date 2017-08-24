@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812141544) do
+ActiveRecord::Schema.define(version: 20170824010628) do
 
   create_table "assets", force: :cascade do |t|
     t.integer "sec"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20170812141544) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.decimal "balanceAUD", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "initial_investment", precision: 12, scale: 2, default: "0.0", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
