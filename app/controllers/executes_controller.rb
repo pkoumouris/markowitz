@@ -66,12 +66,12 @@ class ExecutesController < ApplicationController
 							
 							if (!_asset_id_in_portfolio)
 									
-								new_asset = @Xportfolio.assets.create(sec: _security, volume: _volume, ticker: @Xsecurity.ticker, title: @Xsecurity.title)
+								new_asset = @Xportfolio.assets.create(sec: _security, volume: 0.0, ticker: @Xsecurity.ticker, title: @Xsecurity.title)
 								_asset_id_in_portfolio = new_asset.id	
 
 							end
 
-							@Xportfolio.assets.find(_asset_id_in_portfolio).update_attributes(volume: _volume)
+							@Xportfolio.assets.find(_asset_id_in_portfolio).update_attributes(volume: _volume + @Xportfolio.assets.find(_asset_id_in_portfolio).volume)
 							@Xportfolio.update_attributes(cashAUD: @Xportfolio.cashAUD - _volume*_price*_buy_coef)
 							order.update_attributes(status: 3)
 

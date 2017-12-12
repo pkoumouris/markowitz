@@ -43,17 +43,19 @@
 		<select name="execute[sec]">
 			<option value="">Please select a security.</option>
 			<% Security.all.each do |security| %>
-				<option value="<%= security.id %>"><%= security.ticker %></option>
+				<option value="<%= security.id %>"><%= security.title %></option>
 			<% end %>
 		</select>
 		<h4>In any case, please enter the volume:</h4>
 		<%= f.label :volume, "Volume" %>
 		<%= f.text_field :volume %>
 		<br>
+		<span>Note: Prices may change before execution.</span>
 		<%= f.submit "Submit", class: "btn btn-primary" %>
 	<% end %>
 
 <% else %>
+	<h1>Access Denied</h1>
 	Sorry, you are not permitted to see this portfolio.<br><br>
 	<%= link_to "Back to your page", current_user %>
 <% end %>

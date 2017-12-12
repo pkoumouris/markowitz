@@ -1,0 +1,23 @@
+<% PriceUpdateJob.perform_later(10.00) %>
+<h1>ASX Securities</h1>
+<table>
+	<tr>
+		<td>Ticker</td>
+		<td>Security</td>
+		<td>Price</td>
+		<td>Expected Return (%)</td>
+		<td>Std Deviation (Risk)</td>
+		<td>Market Cap</td>
+	</tr>
+	<% Security.all.each do |security| %>
+		<tr>
+			<td><%= security.ticker %></td>
+			<td><%= link_to security.title, security_path(security) %></td>
+			<td><%= number_to_currency(security.price) %></td>
+			<td><%= (security.expreturn * 100).round(2) %>%</td>
+			<td><%= (security.stddev * 100).round(2) %>%</td>
+			<% _mkt_cap = (security.numshares * security.price) %>
+			<td><%= "$"+big_num_string(_mkt_cap,1) %></td>
+		</tr>
+	<% end %>
+</table>

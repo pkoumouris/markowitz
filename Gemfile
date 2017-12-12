@@ -21,6 +21,17 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Respond gemfile
+gem 'responders', '~> 2.0'
+
+gem 'resque'
+
+gem 'delayed_job_active_record'
+
+gem 'jquery-rails'
+
+gem 'active_model_serializers'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

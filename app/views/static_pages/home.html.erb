@@ -10,13 +10,31 @@
 
 <% if logged_in? %>
 	Logged in as: <%= current_user.name %>
-	<p><%= link_to "Me", current_user %></p>
-	<p><%= link_to "Log out", logout_path, method: :delete %></p>
+	<h2><%= link_to "Me", current_user %></h2>
+	<h2><%= link_to "Log out", logout_path, method: :delete %></h2>
 <% else %>
 	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %><br>
 	Already have an account? 
 	<%= link_to "Log in", login_path %>
 <% end %>
+
+<% _security_info = Array.new %>
+
+<% _AUM = 0.0 %>
+<% User.all.each do |user| %>
+	<% _AUM += user.balanceAUD %>
+	<% user.portfolios.each do |portfolio| %>
+		<% _AUM += portfolio.cashAUD %>
+		<% portfolio.assets.each do |asset| %>
+			<% _AUM += asset.volume * Security.find(asset.sec).price %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<h2>Total Assets Under Management: 
+	<%= number_to_currency(_AUM) %>
+</h2>
+
 
 <% if logged_in? && current_user.admin %>
 	

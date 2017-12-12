@@ -20,6 +20,8 @@ class PortfoliosController < ApplicationController
 
 	def add_execution
 
+		#This is the thing that needs to be put into JSON
+
 		@portfolio = Portfolio.find(params[:id])
 
 		_secID = params[:execute][:sec].to_i
@@ -48,9 +50,9 @@ class PortfoliosController < ApplicationController
 				_scrip_volume /= 1.001
 			end
 
-			if (@portfolio.cashAUD < (_scrip_volume * Security.find(_secID).price * 1.001) && _scrip_volume > 0)
-				redirect_to root_url and return
-			end
+			#if (@portfolio.cashAUD < (_scrip_volume * Security.find(_secID).price * 1.001) && _scrip_volume > 0)
+				#redirect_to root_url and return
+			#end
 
 			@portfolio.executes.create( securityID: _secID, timeblock: 100, volume: _scrip_volume, status: 1)
 			puts("here3")
@@ -64,6 +66,14 @@ class PortfoliosController < ApplicationController
 			@portfolio.update_attributes(cashAUD: @portfolio.cashAUD + _scrip_volume)
 			puts("here4")
 
+		elsif (params[:execute][:transType].to_i == 4)
+
+			#Tether to another portfolio
+
+		elsif (params[:execute][:transType].to_i == 5)
+
+			#Image another portfolio
+
 		end
 
 		
@@ -75,6 +85,8 @@ class PortfoliosController < ApplicationController
 		#	params.require(:execute).permit(:transType, :transArg, :sec, 
   		#		:volume)
 		#end
+
+		#Put algorithms etc. in here, or draw from Python
 
 		def portfolio_params
 			params.require(:portfolio).permit(:title, :description, :initial)

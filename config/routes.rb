@@ -21,7 +21,11 @@ Rails.application.routes.draw do
 
   post '/portfolios/:id', to: 'portfolios#add_execution'
 
+  post '/securitys/:id', to: 'securitys#add_execution'
+
   get '/executes/index', to: 'executes#execution'
+
+  get '/securitys/index', to: 'securitys#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

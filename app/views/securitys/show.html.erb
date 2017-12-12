@@ -1,9 +1,66 @@
 <h1>
-	<%= @security.ticker %> <%= @security.title %>
+	<%= @security.ticker %>
+</h1>
+<h1>
+	<%= @security.title %>
 </h1>
 <h2>
 	Price: <%= number_to_currency(@security.price) %>
 </h2>
+<h3>
+	<% _own = 0.0 %>
+	<% current_user.portfolios.each do |portfolio| %>
+		<% portfolio.assets.each do |asset| %>
+			<% if (asset.sec == @security.id) %>
+				<% _own += @security.price*asset.volume %>
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<% if (_own < 0.01) %>
+		<%= "You do not own any of this security." %>
+	<% else %>
+		<%= "You own " %>
+		<%= number_to_currency(_own) %>
+		<%= " worth of this security." %>
+	<% end %>
+</h3>
+<table>
+	<tr>
+		<td>Expected Return:</td><td><%= @security.expreturn * 100 %>%</td>
+	</tr>
+	<tr>
+		<td>Standard Deviation (risk):</td><td><%= @security.stddev * 100%>%</td>
+	</tr>
+	<tr>
+		<td>Idiosyncratic risk:</td><td><%= @security.idiosync * 100 %>%</td>
+	</tr>
+	<tr>
+		<td>Last dividend:</td><td><%= number_to_currency(@security.dividend) %></td>
+	</tr>
+	<tr>
+		<td>Dividend yield:</td><td><%= 100*@security.divyield %>%</td>
+	</tr>
+	<tr>
+		<td>Market capitalisation:</td><td>$<%= big_num_string(@security.numshares * @security.price,2) %></td>
+	</tr>
+</table>
 <p>
 	<%= @security.description %>
 </p>
+
+<h2>Buy or sell this security.</h2>
+
+<%= form_for(:buySell) do |f| %>
+	Select the portfolio to transfer from/to:
+	<select name="buySell[portfolio]">
+		<option value="">Please select a portfolio.</option>
+		<% current_user.portfolios.each do |portfolio| %>
+			<option value="<%= portfolio.id %>"><%= portfolio.title %></option>
+		<% end %>
+	</select><br>
+	<%= f.label :value, "Value of transfer: $" %>
+	<%= f.text_field :value %><br>
+	<span>Note: Prices may change before execution.</span>
+	<%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

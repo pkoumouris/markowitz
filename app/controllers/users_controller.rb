@@ -56,12 +56,10 @@ class UsersController < ApplicationController
       @user.portfolios.each do |portfolio|
         if _pf_id == portfolio.id
           _approved = true
-          puts("hola1")
         end
       end
 
       if (_value > 0 && (@user.balanceAUD - _value < @user.initial_investment * 0.05))
-        puts("hola2")
         _approved = false
       end
 

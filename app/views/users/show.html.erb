@@ -3,6 +3,7 @@
 	Welcome, <%= @user.name %>.<br>
 	<h2>Your position</h2>
 	Your balance is: <%= number_to_currency(@user.balanceAUD ) %><br><br>
+	Your initial investment is: <%= number_to_currency(@user.initial_investment) %><br><br>
 
 	<% $cash = 0.00 %>
 	<% @user.portfolios.each do |portfolio| %>
@@ -18,7 +19,13 @@
 		<% end %>
 	<% end %>
 	The value of your portfolio assets is: <%= number_to_currency($value) %><br><br>
-	<h3><b>Your total value is: <%= number_to_currency($value + $cash + @user.balanceAUD) %></b></h3><br>
+	<h3><b>Your total value is: <%= number_to_currency($value + $cash + @user.balanceAUD) %></b></h3>
+	<% $return = ((($cash + $value + @user.balanceAUD)/@user.initial_investment-1)*100) %>
+	Your return so far is: <%= $return.round(2) %>%<br>
+
+	<% $time = (DateTime.now.in_time_zone - @user.created_at)/(365*24*60*60) %>
+
+	<br>
 
 	<h2>Your details</h2>
 
