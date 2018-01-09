@@ -1,6 +1,6 @@
 <!-- SHOWS A USER -->
 <% if logged_in? && current_user?(@user) && current_user.activated || current_user.admin %>
-	Welcome, <%= @user.name %>.<br>
+	<h3>Welcome, <%= (@user.name.split)[0] %>.</h3>
 	<h2>Your position</h2>
 	Your balance is: <%= number_to_currency(@user.balanceAUD ) %><br><br>
 	Your initial investment is: <%= number_to_currency(@user.initial_investment) %><br><br>
@@ -65,9 +65,8 @@
 	<% if current_user.admin %>
 		<br>You're currently logged in as admin.
 	<% end %>
-	<b><%= link_to "Create a new portfolio", new_portfolio_path %></b>
+	<br><%= link_to "Create a new portfolio", new_portfolio_path %></b>
 	<br><br>
-	<%= link_to "Home", root_path %>
 <% elsif logged_in? && current_user?(@user) %>
 	Your account is not yet activated. Please see your email account at: 
 	<%= @user.email %>

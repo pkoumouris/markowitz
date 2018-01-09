@@ -21,8 +21,10 @@
 <% _security_info = Array.new %>
 
 <% _AUM = 0.0 %>
+<% _OI = 0.0 %>
 <% User.all.each do |user| %>
 	<% _AUM += user.balanceAUD %>
+	<% _OI += user.initial_investment %>
 	<% user.portfolios.each do |portfolio| %>
 		<% _AUM += portfolio.cashAUD %>
 		<% portfolio.assets.each do |asset| %>
@@ -33,6 +35,12 @@
 
 <h2>Total Assets Under Management: 
 	<%= number_to_currency(_AUM) %>
+</h2>
+<h2>Original Investments:
+	<%= number_to_currency(_OI) %>
+</h2>
+<h2>Net profits delivered:
+	<%= number_to_currency(_AUM-_OI) %>
 </h2>
 
 

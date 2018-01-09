@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209074637) do
+ActiveRecord::Schema.define(version: 20180106235927) do
 
   create_table "assets", force: :cascade do |t|
     t.integer "sec"
@@ -49,6 +49,32 @@ ActiveRecord::Schema.define(version: 20171209074637) do
     t.datetime "updated_at", null: false
     t.index ["portfolio_id", "securityID"], name: "index_executes_on_portfolio_id_and_securityID"
     t.index ["portfolio_id"], name: "index_executes_on_portfolio_id"
+  end
+
+  create_table "interdays", force: :cascade do |t|
+    t.integer "security_id"
+    t.date "date"
+    t.decimal "open", precision: 12, scale: 2
+    t.decimal "close", precision: 12, scale: 2
+    t.decimal "high", precision: 12, scale: 2
+    t.decimal "low", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date", "security_id"], name: "index_interdays_on_date_and_security_id"
+    t.index ["security_id"], name: "index_interdays_on_security_id"
+  end
+
+  create_table "intradays", force: :cascade do |t|
+    t.integer "security_id"
+    t.time "time"
+    t.date "date"
+    t.boolean "updated", default: false
+    t.integer "cardinal360"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "price", precision: 12, scale: 2, default: "0.0", null: false
+    t.index ["security_id", "created_at"], name: "index_intradays_on_security_id_and_created_at"
+    t.index ["security_id"], name: "index_intradays_on_security_id"
   end
 
   create_table "portfolios", force: :cascade do |t|

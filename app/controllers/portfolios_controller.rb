@@ -80,6 +80,10 @@ class PortfoliosController < ApplicationController
 		redirect_to @portfolio
 	end
 
+	def proposal
+		@portfolio = Portfolio.find(params[:id])
+	end
+
 	private
 		#def execute_params
 		#	params.require(:execute).permit(:transType, :transArg, :sec, 

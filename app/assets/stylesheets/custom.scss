@@ -1,0 +1,340 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* universal */
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+/* header */
+
+#top-navbar {
+	background-color:#000090;
+	font-family: Din Alternate;
+	height:60px;
+	borders:none;
+}
+
+#logo {
+	height: 60px;
+}
+
+#top-navbar div nav ul {
+	padding-top:5px;
+}
+
+#nav-left-list li {
+	color:white;
+}
+
+#nav-right-part {
+	background-color: black;
+	height: 100%;
+}
+
+/* sidebar */
+
+/* https://bootsnipp.com/snippets/BDWlD */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #001d60; /* 000 */
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+#grey-marker{
+	color: #999999;
+	margin-left:0px;
+}
+
+
+.sidebar-nav span {
+	margin-left:-25px;
+	margin-right:10px;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+
+
+#top-info {
+	color:#e5e5e5;
+	font-family:DIN Alternate;
+	font-size:20px;
+}
+
+
+
+/* footer */
+
+#footer {
+	margin-top:25px;
+	height: 300px;
+	background-color: #383838;
+}
+
+#footer div {
+	height:100%;
+}
+
+#left-footer {
+	padding-left:30px;
+	padding-top:5px;
+	background-color:#000090;
+	height:100%;
+}
+
+#left-footer p {
+	color:white;
+	font-size:12px;
+	margin:5px;
+	margin-left:-5px;
+	padding-top:10px;
+	width:140px;
+}
+
+#right-footer-loggedin {
+	padding-top:10px;
+	padding-left:80px;
+}
+
+#right-footer {
+	padding-top:10px;
+}
+
+#right-footer h4 {
+	color:white;
+	margin-top:20px;
+}
+
+#right-footer-loggedin h4 {
+	color:white;
+	margin-top:20px;
+}
+
+#right-footer-loggedin p {
+	color:white;
+	font-size:13px;
+}
+
+#right-footer a {
+	color:white;
+	font-size:13px;
+	margin-right:35px;
+}
+
+#right-footer-loggedin a {
+	color:white;
+	font-size:13px;
+	margin-right:35px;
+}
+
+#right-footer-loggedin a i {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+#right-footer a i {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* List of Securities */
+
+#securityList tr td:nth-child(1) {
+	width:80px;
+	text-align:center;
+}
+
+#securityList tr td:nth-child(2) {
+	width: 275px;
+}
+
+#securityList tr td:nth-child(3) {
+	width:100px;
+	text-align:center;
+}
+
+#securityList tr td:nth-child(4) {
+	width:100px;
+	text-align:center;
+}
+
+#securityList tr td:nth-child(5) {
+	width:100px;
+	text-align:center;
+}
+
+/* Top view on Portfolios */
+
+.intraToggle {
+    font-size: 11px;
+}
+
+#change {
+    color:green;
+}
+
+.buildProposal {
+    height: 400px;
+    background-color:#f4f6f9;
+    padding:20px;
+    padding-top:5px;
+}
+
+.buildProposal input {
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    text-align: right;
+    width: 60px;
+}
+
+.buildProposal button {
+    margin-top: 25px;
+}
+
+#proposalBelow {
+    margin-top: 15px;
+    height: 800px;
+    //alt: #dee63f
+    background-color: #f4f6f9;
+    padding:20px;
+    padding-top:5px;
+}
+
+#proposalBelowSuccess {
+    margin-top: 15px;
+    height: 1800px;
+    background-color: #e7ffe0;
+    padding: 20px;
+    padding-top: 5px;
+}

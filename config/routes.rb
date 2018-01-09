@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :api do
+    resources :portfolios, :securitys
+  end
+
   root 'static_pages#home'
 
   get 'sessions/new'
@@ -19,7 +23,7 @@ Rails.application.routes.draw do
 
   post '/portfolios/new', to: 'portfolios#create'
 
-  post '/portfolios/:id', to: 'portfolios#add_execution'
+  get '/portfolios/:id', to: 'portfolios#show'
 
   post '/securitys/:id', to: 'securitys#add_execution'
 

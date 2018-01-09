@@ -7,6 +7,7 @@
 <h2>
 	Price: <%= number_to_currency(@security.price) %>
 </h2>
+<canvas id="securityHistory" ></canvas>
 <h3>
 	<% _own = 0.0 %>
 	<% current_user.portfolios.each do |portfolio| %>
@@ -25,6 +26,8 @@
 		<%= " worth of this security." %>
 	<% end %>
 </h3>
+<canvas 
+<%= react_component('SecurityView', {id: @security.id}) %>
 <table>
 	<tr>
 		<td>Expected Return:</td><td><%= @security.expreturn * 100 %>%</td>

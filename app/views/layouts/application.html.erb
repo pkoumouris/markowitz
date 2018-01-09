@@ -6,9 +6,202 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
-    <%= yield %>
+    <header class="navbar navbar-fixed-top navbar-inverse" id="top-navbar">
+    
+      <div class="row" border-style="none">
+      	<div class="col-sm-2">
+        	<img src="https://image.ibb.co/mYojC6/allocan_logo_2.png" id="logo">
+        </div>
+        <div class="col-sm-10">
+        	<nav>
+          		<ul class="nav navbar-nav navbar-left" id="nav-left-list">
+            		<li><%= link_to "HOME", root_path, {:style=>'color:white'} %></li>
+            		<li><%= link_to "ACCOUNT", current_user, {:style=>'color:white'} %></li>
+            		<li>
+            			<% if !logged_in? %>
+            			<%= link_to "LOG IN", login_path, {:style=>'color:white'} %>
+            			<% else %>
+            			<%= link_to "LOG OUT", logout_path, method: :delete, :style=> 'color:white' %>
+            			<% end %>
+            	
+            		</li>
+          		</ul>
+        	</nav>
+        </div>
+      </div>
+    </header>
+	<div class="row">
+
+	<% if logged_in? %>
+		<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" id="top-info">
+                	<span id="grey-marker">Position </span>
+                	<%= number_to_currency(user_value(current_user)) %>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-user"></span>My Account</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-stats"></span>Portfolios</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-list"></span>Securities</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-transfer"></span>External Transactions</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-time"></span>History</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-info-sign"></span>Help</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <%= yield %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+
+
+    <!-- /#wrapper -->
+     <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+	   	<!--<div class="col-sm-2" id="sidebar">
+	    	
+
+
+	    </div>
+	    <div class="col-sm-10">
+			
+	    </div>-->
+	</div>
+
+	<% else %>
+
+    <div class="container-fluid">
+    	<div class="row">
+    		<div class="col-sm-2">
+    		</div>
+    		<div class="col-sm-10">
+    			<%= yield %>
+    		</div>
+    	</div>
+    </div>
+
+    <% end %>
+
+    <div id="footer">
+    	<div class="row">
+    		<div class="col-sm-2" id="left-footer">
+    			<% if !logged_in? %>
+
+    			<div class="col-sm-2" id="left-footer">
+	    			<img src="https://preview.ibb.co/ja04em/allocan_logo_NB_1.png" height="45px">
+	    			<p>
+	    				Copyright 2017 Allocan Financial Services Pty Ltd.
+	    			</p>
+	    			<p>
+	    				All rights reserved.
+	    			</p>
+	    			<p>
+	    				Australian Financial Licence number 732655
+	    			</p>
+	    		</div>
+
+	    		<% end %>
+
+    		</div>
+    		<div class="col-sm-10" 
+
+    		<% if logged_in? %>
+
+    		id="right-footer-loggedin"
+
+    		<% else %>
+
+    		id="right-footer"
+
+    		<% end %>
+
+    		>
+    			<h4>
+    				Customer Portal
+    			</h4>
+    			<a href="#">FAQs</a>
+    			<a href="#">Customer Agreement</a>
+    			<a href="#">Need help?</a>
+    			<a href="#">Feedback</a>
+    			<a href="#">Urgent assistance</a>
+    			<h4>
+    				About Us
+    			</h4>
+    			<a href="#">Allocan Group</a>
+    			<a href="#">Financial Licensure</a>
+    			<a href="#">Corporate Sustainability</a>
+    			<a href="#">Anti-Money Laundering</a>
+    			<a href="#">Careers</a>
+    			<a href="#">Allocan in the News</a>
+    			<h4>
+    				Connect With Us
+    			</h4>
+                <a href="#"><i class="fa fa-facebook-square"></i></a>
+                <a href="#"><i class="fa fa-twitter-square"></i></a>
+                <a href="#"><i class="fa fa-youtube-square"></i></a>
+                <a href="#"><i class="fa fa-envelope-square"></i></a>
+
+    			<% if logged_in? %>
+    			<p>Copyright 2017 Allocan Financial Services Pty Ltd.</p>
+                <p>AFS license number 732490.</p>
+    			<% end %>
+    		</div>
+    	</div>
+    </div>
   </body>
 </html>
+
+
+<!---
+
+
+<div class="col-sm-2" id="left-footer">
+    			<img src="https://preview.ibb.co/ja04em/allocan_logo_NB_1.png" height="45px">
+    			<p>
+    				Copyright 2017 Allocan Financial Services Pty Ltd.
+    			</p>
+    			<p>
+    				All rights reserved.
+    			</p>
+    		</div>
+
+-->
