@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.1",
+    "chartjs-plugin-piechart-outlabels": "^0.1.4",
     "react-chartjs-2": "^2.6.4",
     "recharts": "^1.0.0-beta.7"
   }

@@ -12,8 +12,22 @@ class ExecutesController < ApplicationController
 		@executes = Execute.all
 	end
 
+# A status 
+
 	def index
-		@executes = Execute.all
+
+		@executes = []
+
+		current_user.portfolios.each do |portfolio|
+			portfolio.executes.each do |execute|
+				if execute.status == 3 && execute.volume > 0
+					@executes.push(execute)
+				end
+			end
+		end
+
+
+
 	end
 
 # A status code 0 means good to be executed.

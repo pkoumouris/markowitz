@@ -3,7 +3,10 @@ class UsersController < ApplicationController
 	before_action :correct_user, only: [:edit, :update]
 
 	def show
-		@user = User.find(params[:id])
+    @user = User.find(params[:id])
+    if !(logged_in? && current_user?(@user))
+      render "static_pages/forbidden", status: 401
+    end
 	end
 
   	def new

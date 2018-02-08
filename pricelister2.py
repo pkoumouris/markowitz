@@ -14,7 +14,7 @@ price = []
 
 for i in range(0,len(ticker)):
 
-	for file in glob.glob('201*'):
+	for file in glob.glob('2018*'):
 
 		txtfile = list(csv.reader(open(file,'rb'),delimiter=','))
 

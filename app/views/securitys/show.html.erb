@@ -1,33 +1,104 @@
-<h1>
-	<%= @security.ticker %>
-</h1>
-<h1>
+<h1 id="securityTitle" class="myHeader">
+	<span><%= @security.ticker %> </span>
 	<%= @security.title %>
 </h1>
-<h2>
-	Price: <%= number_to_currency(@security.price) %>
-</h2>
-<canvas id="securityHistory" ></canvas>
-<h3>
-	<% _own = 0.0 %>
-	<% current_user.portfolios.each do |portfolio| %>
-		<% portfolio.assets.each do |asset| %>
-			<% if (asset.sec == @security.id) %>
-				<% _own += @security.price*asset.volume %>
-			<% end %>
-		<% end %>
-	<% end %>
+<div class="row">
+	<div class="col-sm-8">
+		<canvas id="securityHistory" ></canvas>
+		
+	</div>
+	<div class="col-sm-4" id="securityTopRight">
+		<%= react_component('SecurityView', {id: @security.id}) %>
+	</div>
+</div>
 
-	<% if (_own < 0.01) %>
-		<%= "You do not own any of this security." %>
-	<% else %>
-		<%= "You own " %>
-		<%= number_to_currency(_own) %>
-		<%= " worth of this security." %>
-	<% end %>
-</h3>
-<canvas 
-<%= react_component('SecurityView', {id: @security.id}) %>
+<div class="row" id="securityMidBox">
+	<div class="col-sm-3">
+		<div>
+			<h4>You own</h4>
+			<h3><%= user_own_security(@security) %></h3>
+			<h4>of this security.</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div>
+			<h4>Change</h4>
+			<% _change_last_close = change_last_close(@security) %>
+			<h3 
+				<% if _change_last_close > 0.0 %>
+				class="changeUp"
+				<% else %>
+				class="changeDown"
+				<% end %>
+			>
+				
+				<% if _change_last_close > 0 %>
+				<span id="midInfoArrowResize" class="glyphicon glyphicon-arrow-up"></span>
+				<%= number_to_currency(_change_last_close) %>
+				<%= ((100.0 * _change_last_close / @security.price).round(2)).to_s + '%' %>
+				<% else %>
+				<span id="midInfoArrowResize" class="glyphicon glyphicon-arrow-down"></span>
+				<%= number_to_currency(-1.0*_change_last_close) %>
+				<%= ((-100.0 * _change_last_close / @security.price).round(2)).to_s + '%' %>
+				<% end %>
+			</h3>
+			<h4>from last close</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div>
+			<h4>Change</h4>
+			<% _change_last_week = change_last_week(@security) %>
+			<h3 
+				<% if _change_last_week > 0.0 %>
+				class="changeUp"
+				<% else %>
+				class="changeDown"
+				<% end %>
+			>
+				
+				<% if _change_last_week > 0 %>
+				<span id="midInfoArrowResize" class="glyphicon glyphicon-arrow-up"></span>
+				<%= number_to_currency(_change_last_week) %>
+				<%= ((100.0 * _change_last_week / @security.price).round(2)).to_s + '%' %>
+				<% else %>
+				<span id="midInfoArrowResize" class="glyphicon glyphicon-arrow-down"></span>
+				<%= number_to_currency(-1.0*_change_last_week) %>
+				<%= ((-100.0 * _change_last_week / @security.price).round(2)).to_s + '%' %>
+				<% end %>
+			</h3>
+			<h4>from last week</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div>
+			<h4>Expected return</h4>
+			<h3>
+				<%= (100.0*@security.expreturn).to_s + '%' %>
+			</h3>
+			<h4>annual return.</h4>
+		</div>
+	</div>
+</div>
+
+<div class="row" id="securityInfoBox">
+	<div class="col-sm-6">
+		<div>
+			<h3>
+				About <%= @security.title %>
+			</h3>
+			<p>
+				<%= @security.description %>
+			</p>
+		</div>
+	</div>
+	<div class="col-sm-6">
+	</div>
+</div>
+
+<!--
+
+
 <table>
 	<tr>
 		<td>Expected Return:</td><td><%= @security.expreturn * 100 %>%</td>
@@ -50,7 +121,7 @@
 </table>
 <p>
 	<%= @security.description %>
-</p>
+</p> -->
 
 <h2>Buy or sell this security.</h2>
 

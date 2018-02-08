@@ -1,6 +1,6 @@
 require 'open3'
 
-class RecordIntradayHistory < ApplicationJob
+class RecordInterdayHistory < ApplicationJob
 	#queue_as :default
 
 	def perform()

@@ -1,6 +1,8 @@
 <!-- SHOWS A PORTFOLIO -->
 <% if logged_in? && @portfolio.user.id == current_user.id %>
-	<h1>Portfolio: <%= @portfolio.title %></h1>
+	<h1 class="myHeader" id="portfolioHeader">
+		<span>Portfolio: </span>
+		<%= @portfolio.title %></h1>
 
 	<div class="row">
 
@@ -8,7 +10,7 @@
 			<canvas id="portfolioHistory" ></canvas>
 			
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-4" id="portfolioTopRight">
 			<%= react_component('PortfolioHist', {id: @portfolio.id}) %>
 		</div>
 	</div>
@@ -17,33 +19,71 @@
 
 	<%= link_to "Back to your page", current_user %>
 
-	<h2>Portfolio Composition</h2>
+	<h2 class="myHeader">Portfolio Composition</h2>
 
-	<div class="row">
-		<div class="col-sm-9">
-			<canvas id="portfolioComposition" height="100px"></canvas>
+	<div class="row" id="portfolioMidBox">
+		<div class="col-sm-6">
+			<canvas id="portfolioComposition" height="160px"></canvas>
 		</div>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-2">
+			<div>
+				<h4>Exp. Return</h4>
+				<h2>10.4%</h2>
+				<h4>per annum</h4>
+			</div>
+			<div>
+				<h4>Dividend yield</h4>
+				<h2>
+					4.89%
+				</h2>
+				<h4>
+					per annum
+				</h4>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div>
+				<h4>Risk</h4>
+				<h2>18.9%</h2>
+				<h4>std. deviation</h4>
+			</div>
+			<div>
+				<h4>Change</h4>
+				<h2>
+					1.42%
+				</h2>
+				<h4>
+					from last close
+				</h4>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div>
+				<h4>Correlation</h4>
+				<h2>0.45</h2>
+				<h4>to market</h4>
+			</div>
+			<div>
+				<h4>Change</h4>
+				<h2>
+					2.3%
+				</h2>
+				<h4>
+					from last week
+				</h4>
+			</div>
+		</div>
 	</div>
 
 
 	<%= react_component('PortfolioView', {id: @portfolio.id}) %>
 
-
-
-
-
-	
-	<% @portfolio.assets.each do |asset| %>
-	<%= asset.volume * Security.find(asset.sec).price %>
-	<% end %>
-
-
-
-
 	<h1>Build your portfolio</h1>
 	<div class="row">
 		<div class="col-sm-12">
+			<p>
+				Estimates of return and risk are based on past data. Past data does not guarantee future perforance.
+			</p>
 			<%= react_component('PortfolioProposal', {id: @portfolio.id}) %>
 		</div>
 	</div>

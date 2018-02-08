@@ -1,6 +1,185 @@
 <!-- SHOWS A USER -->
 <% if logged_in? && current_user?(@user) && current_user.activated || current_user.admin %>
-	<h3>Welcome, <%= (@user.name.split)[0] %>.</h3>
+	
+	<h1 class="myHeader">My Account</h1>
+	<div class="row">
+		<div class="col-sm-7">
+			<canvas id="userHistory" ></canvas>
+		</div>
+		<div class="col-sm-3">
+			<%= react_component('AccountViewTop', {id: @user.id}) %>
+		</div>
+		<div class="col-sm-1">
+			<!-- need to link to messages -->
+			<%= link_to(root_path) do %>
+				<div class="smallClickBox">
+					<span id="accountMessagesLogo" class="glyphicon glyphicon-envelope"></span>
+					<h5>Messages</h5>
+				</div>
+			<% end %>
+
+			<!-- need to link to external transactions -->
+			<%= link_to(root_path) do %>
+				<div class="smallClickBox">
+					<span id="accountMessagesLogo" class="glyphicon glyphicon-transfer"></span>
+					<h5>Transfers</h5>
+				</div>
+			<% end %>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+
+	<h2 class="myHeaderBlue">My Portfolios</h2>
+	<div class="row">
+		<div class="col-sm-7">
+			<% @user.portfolios.all.each do |portfolio| %>
+				<% _pf_value = portfolio_value(portfolio) %>
+				<%= link_to(portfolio) do %>
+				<div class="accountPortfolioList">
+					<div class="row">
+						<div class="col-sm-6">
+							<h3>
+								<%= portfolio.title %>
+							</h3>
+							<table>
+								<tr>
+									<td>
+										Portfolio cash
+									</td>
+									<td><b>
+										<%= number_to_currency(portfolio.cashAUD) %>
+									</b></td>
+								</tr>
+								<tr>
+									<td>
+										Security value
+									</td>
+									<td><b>
+
+			<%= number_to_currency(_pf_value - portfolio.cashAUD) %>
+
+									</b></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-sm-6">
+							<h3>
+								<%= number_to_currency(_pf_value) %>
+							</h3>
+							<table>
+								<tr>
+									<td>
+										Last close
+									</td>
+									
+
+			<% _last_close_change = _pf_value - portfolio_old_value(portfolio, 1) %>
+
+									<td
+
+				<% if _last_close_change > 0 %>
+					class="changeUp"
+				<% else %>
+					class="changeDown"
+				<% end %>
+
+									><b>
+
+			<% if _last_close_change > 0 %>
+
+			<span class="glyphicon glyphicon-arrow-up"></span>
+
+			<% else %>
+
+			<span class="glyphicon glyphicon-arrow-down"></span>
+
+				<% _last_close_change *= -1 %>
+
+			<% end %>
+
+			<%= number_to_currency(_last_close_change) %>
+
+			<%= ' '+((100.0*(_last_close_change/(_pf_value - _last_close_change))).round(2)).to_s + '%' %>
+
+									</b></td>
+								</tr>
+								<tr>
+									<td>
+										Last week
+									</td>
+
+			<% _last_close_change = _pf_value - portfolio_old_value(portfolio, 7) %>
+
+									<td
+
+				<% if _last_close_change > 0 %>
+					class="changeUp"
+				<% else %>
+					class="changeDown"
+				<% end %>
+
+									><b>
+			
+
+			<% if _last_close_change > 0 %>
+
+			<span class="glyphicon glyphicon-arrow-up"></span>
+
+			<% else %>
+
+			<span class="glyphicon glyphicon-arrow-down"></span>
+
+				<% _last_close_change *= -1 %>
+
+			<% end %>
+
+			<%= number_to_currency(_last_close_change) %>
+
+			<%= ' '+((100.0*(_last_close_change/(_pf_value - _last_close_change))).round(2)).to_s + '%' %>
+
+									</b></td>
+								</tr>
+							</table>
+						</div>
+						
+					</div>
+
+				</div>
+				<% end %>
+				
+			<% end %>
+			<%= link_to('/portfolios/new') do %>
+			<!-- new_portfolios_path -->
+				<div class="accountPortfolioList">
+					<h3>
+						<span class="glyphicon glyphicon-plus"></span>
+						Add new portfolio
+					</h3>
+				</div>
+			<% end %>
+		</div>
+		<% portfolio_list = [] %>
+		<% portfolio_cash_list = [] %>
+		<% @user.portfolios.each do |portfolio| %>
+		<% portfolio_list.push(portfolio.title) %>
+		<% portfolio_cash_list.push(portfolio.cashAUD) %>
+		<% end %>
+		<%= react_component('UserCashTransfer', {
+			id: @user.id, 
+			portfolioList: portfolio_list, 
+			accountCash: @user.balanceAUD, 
+			portfolioCashList: portfolio_cash_list }) %>
+	</div>
+
+<% elsif logged_in? && current_user?(@user) %>
+	Your account is not yet activated. Please see your email account at: 
+	<%= @user.email %>
+<% else %>
+	class3
+<% end %>
+
+<!--
+<h3>Welcome, <%= (@user.name.split)[0] %>.</h3>
 	<h2>Your position</h2>
 	Your balance is: <%= number_to_currency(@user.balanceAUD ) %><br><br>
 	Your initial investment is: <%= number_to_currency(@user.initial_investment) %><br><br>
@@ -67,9 +246,4 @@
 	<% end %>
 	<br><%= link_to "Create a new portfolio", new_portfolio_path %></b>
 	<br><br>
-<% elsif logged_in? && current_user?(@user) %>
-	Your account is not yet activated. Please see your email account at: 
-	<%= @user.email %>
-<% else %>
-	You don't have access to this! :O
-<% end %>
+-->

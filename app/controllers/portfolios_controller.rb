@@ -16,6 +16,9 @@ class PortfoliosController < ApplicationController
 
 	def show
 		@portfolio = Portfolio.find(params[:id])
+		if !(logged_in? && @portfolio.user.id == current_user.id)
+			render "static_pages/forbidden", status: 401
+		end
 	end
 
 	def add_execution
@@ -95,4 +98,5 @@ class PortfoliosController < ApplicationController
 		def portfolio_params
 			params.require(:portfolio).permit(:title, :description, :initial)
 		end
+
 end

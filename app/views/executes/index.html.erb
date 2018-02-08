@@ -1,8 +1,49 @@
-Hello eh!
+<h1 class="myHeader">
+	Confirm execution
+</h1>
 
-<!--<% form_for(:executor) do |f| %>
-	<%= f.label :notes, "Notes" %>
-	<%= f.text_field :notes %>
+<table id="executesTable">
+	<tr>
+		<td>
+			Security
+		</td>
+		<td>
+			Type
+		</td>
+		<td>
+			Volume
+		</td>
+		<td>
+			Price
+		</td>
+		<td>
+			Value of trade
+		</td>
+	</tr>
 
-	<%= f.submit "Execute all!", class: "btn btn-primary" %>
-<% end %>-->
+	<% @executes.each do |execute| %>
+
+			<!-- change this if you change rel DB -->
+		<% security = Security.find(execute.securityID) %>
+
+		<tr>
+			<td>
+				<%= security.title %>
+			</td>
+			<td>
+				WE
+			</td>
+			<td>
+				<%= security.price %>
+			</td>
+			<td>
+				<%= execute.volume %>
+			</td>
+			<td>
+				<%= security.price * execute.volume %>
+			</td>
+		</tr>
+
+	<% end %>
+
+</table>

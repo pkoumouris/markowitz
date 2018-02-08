@@ -1,0 +1,28 @@
+<div id="forbiddenTopBox" class="row">
+	<div class="col-sm-10">
+		<h1><span class="glyphicon glyphicon-remove"></span> 403 - Forbidden</h1>
+		<p>
+			Sorry, you are not permitted to see this page. This may be because you are not logged in, or because you are not logged into the right account.
+		</p>
+		<p>
+			Only the correct user can see his or her account page, or the pages of any of his or her portfolios.
+		</p>
+	</div>
+	<div class="col-sm-2"></div>
+</div>
+<div class="errorWhereToGo">
+	<h2>Where to from here</h2>
+	<span>From here you can:</span>
+	<ul>
+		<li>
+			<%= link_to(root_path) do %>
+				Go home
+			<% end %>
+		</li>
+		<li>
+			<%= link_to(login_path) do %>
+				Go to the login page
+			<% end %>
+		</li>
+	</ul>
+</div>

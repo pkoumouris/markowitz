@@ -3,49 +3,129 @@
 
 <title>Allocan</title>
 
-<h1>Welcome to Allocan.</h1>
-<p>
-	This is the home page.
-</p>
-
-<% if logged_in? %>
-	Logged in as: <%= current_user.name %>
-	<h2><%= link_to "Me", current_user %></h2>
-	<h2><%= link_to "Log out", logout_path, method: :delete %></h2>
-<% else %>
-	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %><br>
-	Already have an account? 
-	<%= link_to "Log in", login_path %>
-<% end %>
-
-<% _security_info = Array.new %>
-
-<% _AUM = 0.0 %>
-<% _OI = 0.0 %>
-<% User.all.each do |user| %>
-	<% _AUM += user.balanceAUD %>
-	<% _OI += user.initial_investment %>
-	<% user.portfolios.each do |portfolio| %>
-		<% _AUM += portfolio.cashAUD %>
-		<% portfolio.assets.each do |asset| %>
-			<% _AUM += asset.volume * Security.find(asset.sec).price %>
-		<% end %>
-	<% end %>
-<% end %>
-
-<h2>Total Assets Under Management: 
-	<%= number_to_currency(_AUM) %>
-</h2>
-<h2>Original Investments:
-	<%= number_to_currency(_OI) %>
-</h2>
-<h2>Net profits delivered:
-	<%= number_to_currency(_AUM-_OI) %>
-</h2>
-
-
-<% if logged_in? && current_user.admin %>
+<% if logged_in? && current_user.activated %>
 	
+	<h1>Welcome</h1>
+
+<% elsif logged_in? %>
+
+	<h1 class="myHeader">
+		Congratulations! Welcome to your Allocan account!
+	</h1>
+	<h3>
+		Your account is not activated
+	</h3>
+	<p>
+		You will not be able to use Allocan's features until you activate your account. If you have just
+	</p>
+	<h3>
+		To activate your account
+	</h3>
+	<p>
+		To activate your account, go to your email at <%= current_user.email %>. You should have received an account confirmation email.
+	</p>
+	
+	<% if current_user.created_at < 2.days.ago %>
+		<h3 class="myHeader">
+			Can't find
+		</h3>
+	<% else %>
+
+	<% end %>
+
+<% elsif  %>
+
+<div id="landingWrapper">
+	<div>
+		<table>
+			<tr>
+				<td>
+					<i>I want to invest in stocks</i><br/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					but...
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div>
+
+				<span>
+					but...
+				</span>
+				<table>
+					<tr>
+						<td>
+							I don't know how to go about it...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't have much money...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't know which stocks to pick...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							The transaction fees are prohibitive...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't know how to optimise or analyse my portfolio...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't know how risky I'm being...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't have the time to learn it all...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I want flexibility in how I manage it...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't trust giving brokers access to my bank account...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							I don't want to be ripped off by some broker...
+						</td>
+					</tr>
+					<tr>
+						<td>
+							etc...
+						</td>
+					</tr>
+				</table>
+
+	</div>
+	<div>
+		<span>
+			With Allocan, <i>now you can</i>.
+		</span>
+		<h3>
+			Allocan is a new platform, innovatively designed to make it easy for the average Australian to invest in stocks, while retaining control.
+		</h3>
+	</div>
+</div>
+
 <% end %>
 
 </html>

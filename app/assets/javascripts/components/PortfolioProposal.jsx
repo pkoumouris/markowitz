@@ -107,7 +107,7 @@ class PortfolioProposal extends React.Component {
 
 			component.setState({
 				basicData: true
-			})
+			});
 
 		});
 	}

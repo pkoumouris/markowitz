@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :api do
-    resources :portfolios, :securitys
+    resources :portfolios, :securitys, :users
   end
 
   root 'static_pages#home'
@@ -17,17 +17,21 @@ Rails.application.routes.draw do
   get '/about', to: 'static_pages#about'
 #When we 'GET' the signup page, we use users#new
   get '/signup', to: 'users#new'
+
+  get '/useragreement', to: 'static_pages#user_agreement'
+
 #When we 'POST' to the signup page (i.e. create new user)
 #we use 'users#create'
   post '/signup', to: 'users#create'
 
   post '/portfolios/new', to: 'portfolios#create'
+  get '/portfolios/new', to: 'portfolios#new'
 
   get '/portfolios/:id', to: 'portfolios#show'
 
   post '/securitys/:id', to: 'securitys#add_execution'
 
-  get '/executes/index', to: 'executes#execution'
+  get '/executes/index', to: 'executes#index'
 
   get '/securitys/index', to: 'securitys#index'
 

@@ -1,6 +1,32 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+    
+}
+
+/* error pages */
+#forbiddenTopBox {
+    padding-top: 20px;
+}
+
+#forbiddenTopBox div:first-child {
+    background-color: red;
+    color: white;
+}
+
+#forbiddenTopBox div:first-child p {
+    font-size: 16px;
+}
+
+.errorWhereToGo span {
+    font-size: 18px;
+}
+
+.errorWhereToGo ul {
+    font-size: 18px;
+}
+
 /* universal */
 
 body {
@@ -23,17 +49,73 @@ textarea {
   margin-bottom: 10px;
 }
 
+.myHeader {
+    font-family: Din Alternate;
+    color: #004d5e;
+}
+
+.myHeaderBlue {
+    font-family: Din Alternate;
+    color: #000090;
+}
+
+.myButton {
+    font-family: Din Alternate;
+    font-size: 16px;
+    background-color: #004d5e;
+    border: none;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.myButton:hover {
+    background-color: #00728c;
+}
+
 /* header */
 
 #top-navbar {
-	background-color:#000090;
+	/*background-color:#000090;*/
+    background: linear-gradient(to right,#000090,#00d16f);
 	font-family: Din Alternate;
 	height:60px;
 	borders:none;
+    border: none;
+}
+
+#top-navbar-loggedout {
+    background: linear-gradient(to right,#000090,#00dbb3);
+    font-family: Din Alternate;
+    height:60px;
+    borders:none;
+    border: none;
 }
 
 #logo {
 	height: 60px;
+}
+
+#logo-top-left {
+    margin-left: 35px;
+    margin-top: 2px;
+    margin-right: 20px;
+}
+
+#logo-top-left img {
+    height: 45px;
+}
+
+#logo-top-left-logged-out {
+    margin-left: 35px;
+    margin-top: -10px;
+}
+
+#logo-top-left-logged-out img {
+    height: 45px;
+    margin-bottom: -10px;
 }
 
 #top-navbar div nav ul {
@@ -44,10 +126,66 @@ textarea {
 	color:white;
 }
 
+#nav-right-list {
+    margin-left:-20px;
+    margin-right: 20px;
+}
+
+#nav-right-list-loggedout {
+    margin-left: -20px;
+    margin-right: 20px;
+}
+
+.top-navbar-button {
+    color: white;
+    font-family: Helvetica Neue;
+    background: none;
+    border-color: white;
+    width: 90px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 10px;
+}
+
+.top-navbar-button:hover {
+    color: #000090;
+    background-color: white;
+}
+
 #nav-right-part {
 	background-color: black;
 	height: 100%;
 }
+
+#topNavbarRightLogout span:nth-child(2) {
+    font-size: 24px;
+    margin-left: 10px;
+    padding-top:-20px;
+}
+
+#loggedInAs {
+    padding-top:5px;
+    color: white;
+    font-size: 14px;
+}
+
+#loggedInAs span {
+    font-size: 16px;
+    padding-top:-10px;
+}
+
+#topNavbarHomeIcon {
+    padding-right:25px;
+    font-size: 20px;
+    color: white;
+}
+
+#topNavbarOffIcon {
+    color: white;
+    font-size: 20px;
+}
+
+
 
 /* sidebar */
 
@@ -266,6 +404,139 @@ textarea {
     margin-bottom: 15px;
 }
 
+
+
+/* Landing page */
+
+#landingWrapper {
+    margin-left: -220px;
+    margin-bottom: -25px;
+}
+
+#landingWrapper div:nth-child(1) {
+    /*background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b1/Umenokitodoro_Park_Suspension_Bridge.jpg");*/
+    background-image: url("http://www.you-nique-by-design.com/wp-content/uploads/narrow-wooden-bridge-1920x12001.jpg");
+    height: 600px;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    text-align: center;
+    color: white;
+    padding-top: 200px;
+}
+
+#landingWrapper div:nth-child(1) table {
+    width: 100%;
+}
+
+#landingWrapper div:nth-child(1) table tr:nth-child(1) td {
+    font-size: 46px;
+    font-family: Georgia;
+    text-align: center;
+    height: 30px;
+}
+
+#landingWrapper div:nth-child(1) table tr:nth-child(2) {
+    padding-top: -50px;
+}
+
+#landingWrapper div:nth-child(1) table tr:nth-child(2) td {
+    font-size: 96px;
+    font-family: Din Alternate;
+}
+
+#landingWrapper div:nth-child(2) {
+    background-color: #52b7a8;
+    padding-top: 20px;
+    height: 660px;
+}
+
+#landingWrapper div:nth-child(2) span {
+    color: white;
+    font-size: 72px;
+    margin-left: 100px;
+    font-family: Din Alternate;
+}
+
+#landingWrapper div:nth-child(2) table {
+    margin-left: 140px;
+}
+
+#landingWrapper div:nth-child(2) table tr td {
+    color: white;
+    font-size: 40px;
+    font-family: Din Alternate;
+}
+
+#landingWrapper div:nth-child(2) table tr:nth-child(6) td {
+    font-size: 30px;
+}
+
+#landingWrapper div:nth-child(2) table tr:nth-child(7) td {
+    font-size: 24px;
+}
+
+#landingWrapper div:nth-child(2) table tr:nth-child(8) td {
+    font-size: 20px;
+}
+
+#landingWrapper div:nth-child(2) table tr:nth-child(9) td {
+    font-size: 16px;
+}
+
+#landingWrapper div:nth-child(2) table tr:nth-child(10) td {
+    font-size: 12px;
+}
+
+#landingWrapper div:nth-child(3) {
+    background-color: #1984ff;
+    height: 340px;
+    text-align: center;
+    padding-top: 90px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#landingWrapper div:nth-child(3) span {
+    font-size: 60px;
+    color: white;
+    font-family: Din Alternate;
+}
+
+#landingWrapper div:nth-child(3) h3 {
+    color: white;
+}
+
+/* Login page */
+
+.formSquare {
+    margin-top: 30px;
+    padding: 15px;
+    width: 450px;
+    //height: 500px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #004d5e;
+    border-radius: 10px;
+}
+
+#forgotPasswordSquare {
+    margin-top: 30px;
+    padding: 15px;
+    width: 450px;
+    height: 320px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #004d5e;
+    border-radius: 10px;
+}
+
+/* New Security Page */
+
+#newPortfolio {
+    height: 440px;
+}
+
 /* List of Securities */
 
 #securityList tr td:nth-child(1) {
@@ -298,8 +569,16 @@ textarea {
     font-size: 11px;
 }
 
-#change {
-    color:green;
+/*#securityTopRightChangeUp {
+    color:#00ff2a;
+}*/
+
+.changeUp {
+    color: #00ff2a;
+}
+
+.changeDown {
+    color: #ff9060;
 }
 
 .buildProposal {
@@ -337,4 +616,366 @@ textarea {
     background-color: #e7ffe0;
     padding: 20px;
     padding-top: 5px;
+}
+
+#portfolioTopRight {
+    background-color: #000090;
+    color: white;
+    padding-bottom: 20px;
+}
+
+#portfolioTopRight h3 {
+    margin-bottom: -10px;
+}
+
+#portfolioTopRight table tr td:first-child {
+    width: 200px;
+}
+
+#portfolioTopRight table tr {
+    height: 24px;
+}
+
+#portfolioMidBox div div {
+    background-color: #000090;
+    color: white;
+    margin:-10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding:10px;
+}
+
+/* Security Page */
+
+#securityTitle span {
+    color: grey;
+}
+
+#securityTopRight {
+    background-color: #000090;
+    color:white;
+    padding-bottom: 20px;
+}
+
+/*#securityTopRightComponent h3 {
+    margin-top: -5px;
+}*/
+
+#securityTopRightComponent table {
+    font-size: 15px;
+}
+
+#securityTopRightComponent table tr {
+    height: 28px;
+}
+
+#securityTopRightComponent table tr td:first-child {
+    width: 180px;
+}
+
+#securityTopRightComponent h2 span {
+    font-size: 24px;
+    padding-left: 5px;
+}
+
+#securityMidBox {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+#securityMidBox div div {
+    background-color: #000090;
+    color: white;
+    margin:-10px;
+    padding:10px;
+}
+
+#securityInfoBox div:first-child {
+    
+}
+
+#securityInfoBox div:first-child div {
+    background-color: #000090;
+    color: white;
+    margin: -10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#midInfoArrowResize {
+    font-size:20px;
+}
+
+.changeTimePeriod tr  {
+    width: 100px;
+}
+
+.changeTimePeriod tr  button {
+    width: 90px;
+}
+
+/* Account page */
+
+#accountTopRightInfo {
+    background-color: #000090;
+    color: white;
+    margin: -10px;
+    padding: 20px;
+    padding-top: 5px;
+    margin-bottom: 20px;
+}
+
+#accountTopRightInfo h2 {
+    margin-bottom: -5px;
+}
+
+.smallClickBox {
+    background-color: #000090;
+    text-align: center;
+    height: 100px;
+    width: 100px;
+    color: white;
+    margin:-10px;
+    margin-bottom: 20px;
+}
+
+.smallClickBox:hover {
+    /* HOVER */
+    background-color: #0031c6;
+}
+
+#accountMessagesLogo {
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+#accountTopBoxTable tr td:first-child {
+    font-size: 14px;
+    width: 160px;
+}
+
+#accountTopBoxTable tr td:nth-child(2) {
+    font-size: 18px;
+    
+}
+
+#securityHistory {
+    height: 500px;
+}
+
+.accountPortfolioList {
+    //background-color: #004d5e;
+    background-color: #000090;
+    color: white;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.accountPortfolioList:hover {
+    /* HOVER */
+    background-color: #0031c6;
+    //background-color: #097284;
+}
+
+.accountPortfolioList h3 {
+    margin-top: -2px;
+}
+
+.accountPortfolioList div div table {
+    margin-bottom: 10px;
+}
+
+.accountPortfolioList div div table tr td {
+    font-size: 15px;
+}
+
+.accountPortfolioList div div:first-child table tr td:first-child {
+    width: 140px;
+}
+
+.accountPortfolioList div div:nth-child(2) table tr td:first-child {
+    width: 110px;
+}
+
+/* (UserCashTransfer jsx) */
+
+#accountCashTransfer {
+    background-color: #097284;
+    color: white;
+    width: 340px;
+    height: 330px;
+}
+
+#accountCashTransferSuccess {
+    background-color: #00ba78;
+    color: white;
+    width: 340px;
+    height: 330px;
+}
+
+#accountCashTransferFailure {
+    background-color: red;
+    color: white;
+    width: 340px;
+    height: 330px;
+}
+
+#cashTransferToggle {
+    color: #cbd0d8;
+    background-color: #097284;
+    border-color: white;
+    width: 154px;
+}
+
+#cashTransferToggleActive {
+    color: #000090;
+    background-color: white;
+    border-color: white;
+    font-weight: bold;
+    width: 154px;
+}
+
+#cashTransferTogglePill {
+    margin-bottom: 15px;
+}
+
+#cashTransferTogglePill li:nth-child(1) button {
+    border-radius: 15px 0px 0px 15px;
+}
+
+#cashTransferTogglePill li:nth-child(2) button {
+    border-radius: 0px 15px 15px 0px;
+}
+
+.cashTransferBoxButtonTeal {
+    font-family: Din Alternate;
+    font-size: 16px;
+    background-color: #097284;
+    border-color: white;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.cashTransferBoxButtonGreen {
+    font-family: Din Alternate;
+    font-size: 16px;
+    background-color: #00ba78;
+    border-color: white;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.cashTransferBoxButtonRed {
+    font-family: Din Alternate;
+    font-size: 16px;
+    background-color: #00ba78;
+    border-color: white;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.cashTransferBoxButtonTeal:hover {
+    color: #097284;
+    background-color: white;
+}
+
+.cashTransferBoxButtonGreen:hover {
+    color: #097284;
+    background-color: white;
+}
+
+.cashTransferBoxButtonRed:hover {
+    color: #097284;
+    background-color: white;
+}
+
+.cashTransferBoxButtonDisabled {
+    font-family: Din Alternate;
+    font-size: 16px;
+    background-color: #097284;
+    border-color: #b5cbce;
+    color: #b5cbce;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#cashTransferForm {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#cashTransferForm label select {
+    width: 300px;
+    height: 28px;
+    color: white;
+    background-color: #097284;
+    border-color: white;
+    border-radius: 3px;
+    border-width: 2px;
+    margin-bottom: 15px;
+}
+
+#cashTransferForm input {
+    color: white;
+    font-family: Din Alternate;
+    background-color: #097284;
+    width: 200px;
+    height: 30px;
+    text-align: right;
+    border-color: white;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+#hideMe {
+    display: none;
+}
+
+#transferConfirmationText {
+    font-size: 16px;
+}
+
+#transferConfirmationText tr td:nth-child(1) {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+#transferConfirmationText tr td:nth-child(2) {
+    width: 160px;
+}
+
+#cashTransferButtonSpecifics {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#cashTransferTick {
+    color: white;
+    font-size: 20px;
+}
+
+/* Show Portfolio page */
+
+#portfolioHeader span {
+    color: grey;
+}
+
+/* Executes (index) Page */
+
+#executesTable {
+    
 }

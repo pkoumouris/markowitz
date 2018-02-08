@@ -14,7 +14,8 @@ class PortfolioHist extends React.Component {
 				expRet: 0.0,
 				stdDev: 0.0
 			},
-			histPeriod: "week"
+			histPeriod: "month",
+			loaded: false
 		};
 		this.seeIntraday = this.seeIntraday.bind(this);
 		this.seeIntraweek = this.seeIntraweek.bind(this);
@@ -35,7 +36,8 @@ class PortfolioHist extends React.Component {
 		})
 		.then( json => {
 			component.setState({
-				data: json
+				data: json,
+				loaded: true
 			});
 		});
 	}
@@ -67,18 +69,26 @@ class PortfolioHist extends React.Component {
 			histData = this.state.data.historyYear;
 		}
 
+
+
+
+
 		let histList = histData.map(
 			timePoint => timePoint.value
+		);
+
+		let labelList = histData.map(
+			timePoint => timePoint.date
 		);
 
 		const ctx2 = document.getElementById("portfolioHistory");
         const portfolioHistory = new Chart(ctx2, {
            type: 'line',
            data: {
-	           labels: ['June','July','August'],
+	           labels: labelList,
 	           datasets: [{
 	               label: "Portfolio Value",
-	               data: histList,
+	               data: histList.reverse(),
 	               borderColor: "#3e95cd"
 	            }]
 
@@ -87,52 +97,142 @@ class PortfolioHist extends React.Component {
           		title: {
           			display: true,
           			text: 'Portfolio History: Intra'+this.state.histPeriod
+          		},
+          		elements: {
+          			line: {
+          				tension: 0
+          			}
           		}
           	}
 
        	});
 
+       	let changeDay = this.state.data.value - this.state.data.historyWeek[0].value;
+
+       	if (changeDay > 0){
+       		upDay = true;
+       	} else {
+       		upDay = false;
+       	}
+
 		return (<div>
-					<h4>Current value</h4>
+					<h3>
+					{this.state.loaded ? 
+					"Your portfolio" : "Loading your portfolio..."}
+					</h3>
 
 					<h2>
 						{'$'+commaDecimal(this.state.data.value)}
 					</h2>
-					<h4 id="change"><span class="glyphicon glyphicon-arrow-up"></span> 0.20% $23.11</h4>
+					<h4 class={upDay ? 
+						"changeUp" : "changeDown"
+					}>
 
-					<h5>Portfolio cash balance: {'$'+commaDecimal(this.state.data.cash)}</h5>
+					<span class={
+						upDay ?
+						"glyphicon glyphicon-arrow-up" :
+						"glyphicon glyphicon-arrow-down"
+					}></span>
 
-					<h5>Value of securities: {'$'+commaDecimal(this.state.data.value-this.state.data.cash)}</h5>
+					{this.state.loaded ? ' '+commaDecimal(
+						Math.abs(100*changeDay/this.state.data.value)
+					) + '% ' : " "}
 
-					<p>Expected annual return: <b>{commaDecimal(100.0*this.state.data.expRet)+'%'}</b></p>
+					{this.state.loaded ? '$'+commaDecimal(
 
-					<p>Estimated standard deviation: <b>{commaDecimal(100*this.state.data.stdDev)+'%'}</b></p>
+					Math.abs(changeDay)
+
+					) : "Loading..."} 
+					
+					</h4>
+
+					<table>
+
+						<tr>
+							<td>
+								Portfolio cash balance: 
+							</td>
+							<td><b>
+								{'$'+commaDecimal(this.state.data.cash)}
+							</b></td>
+						</tr>
+
+						<tr>
+							<td>
+								Value of securities: 
+							</td>
+							<td><b>
+								{'$'+commaDecimal(this.state.data.value-this.state.data.cash)}
+							</b></td>
+						</tr>
+
+						<tr>
+							<td>
+								Expected annual return: 
+							</td>
+							<td><b>
+								{commaDecimal(100.0*this.state.data.expRet)+'%'}
+							</b></td>
+						</tr>
+
+						<tr>
+							<td>
+								Expected std deviation: 
+							</td>
+							<td><b>
+								{commaDecimal(100*this.state.data.stdDev)+'%'}
+							</b></td>
+						</tr>
+
+					</table>
 
 					<h5>Change time period</h5>
 
-					<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntraday}>
-						<span class="intraToggle">
-							Intraday
-						</span>
-					</button>
+					<table class="changeTimePeriod">
 
-					<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntraweek}>
-						<span class="intraToggle">
-							Intraweek
-						</span>
-					</button>
+						<tr>
 
-					<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntramonth}>
-						<span class="intraToggle">
-							Intramonth
-						</span>
-					</button>
 
-					<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntrayear}>
-						<span class="intraToggle">
-							Intrayear
-						</span>
-					</button>
+
+							<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntraday}>
+								<span class="intraToggle">
+									Intraday
+								</span>
+							</button>
+
+						
+
+							<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntraweek}>
+								<span class="intraToggle">
+									Intraweek
+								</span>
+							</button>
+
+
+
+						</tr>
+						<tr>
+
+
+
+							<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntramonth}>
+								<span class="intraToggle">
+									Intramonth
+								</span>
+							</button>
+
+						
+
+							<button type="button" class="btn btn-primary btn-xs" onClick={this.seeIntrayear}>
+								<span class="intraToggle">
+									Intrayear
+								</span>
+							</button>
+
+
+						</tr>
+
+					</table>
 					
 				</div>);
 	}
@@ -154,7 +254,7 @@ function commaDecimal(value) {
 		decimalPt = decimalPt.toString();
 	}
 
-	rightVal = Math.round(value);
+	rightVal = Math.floor(value);
 	rightVal = rightVal.toString();
 
 	str = '';

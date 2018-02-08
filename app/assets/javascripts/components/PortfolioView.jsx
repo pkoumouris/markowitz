@@ -32,6 +32,8 @@ class PortfolioView extends React.Component {
 				data: json
 			});
 		});
+
+		
 	}
 
 	
@@ -92,6 +94,8 @@ class PortfolioView extends React.Component {
 		);
 
 		
+		
+
 
 		const ctx = document.getElementById("portfolioComposition");
         const portfolioComposition = new Chart(ctx, {
@@ -112,6 +116,19 @@ class PortfolioView extends React.Component {
           		},
           		tooltips: {
           			enabled: true
+          		},
+          		plugins: {
+          			legend: false,
+          			outlabels: {
+          				text: '%l %p',
+          				color: 'white',
+          				stretch: 45,
+          				font: {
+	                        resizable: true,
+	                        minSize: 12,
+	                        maxSize: 18
+	                    }
+          			}
           		}
           	}
 
@@ -121,8 +138,7 @@ class PortfolioView extends React.Component {
 
 		return (
 			<div>
-				<h2>Portfolio value ${commaDecimal(this.state.data.value)}</h2>
-				<h3>Breakdown:</h3>
+				<h2>Breakdown</h2>
 				<table
 				className = "table table-striped table-hover">
 					<thead>
@@ -201,7 +217,7 @@ function commaDecimal(value) {
 		decimalPt = decimalPt.toString();
 	}
 
-	rightVal = Math.round(value);
+	rightVal = Math.floor(value);
 	rightVal = rightVal.toString();
 
 	str = '';

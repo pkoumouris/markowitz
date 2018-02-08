@@ -10,26 +10,82 @@
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse" id="top-navbar">
+    <header class="navbar navbar-fixed-top navbar-inverse" 
+
+    <% if logged_in? %>
+    id="top-navbar"
+    <% else %>
+    id="top-navbar-loggedout"
+    <% end %>
+    >
     
       <div class="row" border-style="none">
-      	<div class="col-sm-2">
-        	<img src="https://image.ibb.co/mYojC6/allocan_logo_2.png" id="logo">
-        </div>
-        <div class="col-sm-10">
+      	<!--<div class="col-sm-2">
+            
+
+            https://image.ibb.co/mYojC6/allocan_logo_2.png
+
+             
+        	<img src="https://image.ibb.co/iNCajG/allocan_logo_blue_background_2.png" id="logo">
+        </div> -->
+        <div class="col-sm-12">
         	<nav>
-          		<ul class="nav navbar-nav navbar-left" id="nav-left-list">
-            		<li><%= link_to "HOME", root_path, {:style=>'color:white'} %></li>
-            		<li><%= link_to "ACCOUNT", current_user, {:style=>'color:white'} %></li>
-            		<li>
-            			<% if !logged_in? %>
-            			<%= link_to "LOG IN", login_path, {:style=>'color:white'} %>
-            			<% else %>
-            			<%= link_to "LOG OUT", logout_path, method: :delete, :style=> 'color:white' %>
-            			<% end %>
-            	
-            		</li>
-          		</ul>
+          		
+            <% if logged_in? %>
+                <ul class="nav navbar-nav navbar-left" id="nav-right-list">
+                    <li id="logo-top-left">
+                        
+                            <img src="https://image.ibb.co/fgHVJb/allocan_logo_clear_1.png" alt="allocan_logo_clear_1" />
+                        
+                    </li>
+                    <li>
+                        <%= link_to(root_path) do %>
+                            <span class="glyphicon glyphicon-home" id="topNavbarHomeIcon"></span>
+                        <% end %>
+                    </li>
+                    <li>
+                        <div id="loggedInAs">
+                            Logged in as</br>
+                            <span><%= current_user.name %></span>
+                        </div>
+                    </li>
+                </ul>
+            <% end %>
+
+            <% if !logged_in? %>
+                <ul class="nav navbar-nav navbar-left" id="nav-right-list">
+                    <li id="logo-top-left-logged-out">
+                        <%= link_to(root_path) do %>
+                            <img src="https://image.ibb.co/fgHVJb/allocan_logo_clear_1.png" alt="allocan_logo_clear_1" />
+                        <% end %>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" id="nav-right-list-loggedout">
+                    <%= link_to(login_path) do %>
+                        <button class="top-navbar-button">
+                            <b>Sign in</b>
+                        </button>
+                    <% end %>
+                    <%= link_to(signup_path) do %>
+                        <button class="top-navbar-button">
+                            <b>Sign up</b>
+                        </button>
+                    <% end %>
+                </ul>
+            <% else %>
+
+                <ul class="nav navbar-nav navbar-right" id="nav-right-list">
+                    <li id="topNavbarRightLogout">
+                        <%= link_to(logout_path, method: :delete) do %>
+                            <span class="glyphicon glyphicon-off" id="topNavbarOffIcon"></span>
+                        <% end %>
+                    </li>
+                </ul>
+
+            <% end %>
+
+                
         	</nav>
         </div>
       </div>
@@ -47,25 +103,42 @@
                 	<%= number_to_currency(user_value(current_user)) %>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-user"></span>My Account</a>
+                    <%= link_to(user_path(current_user)) do %>
+                        <span class="glyphicon glyphicon-user"></span>
+                        My Account
+                    <% end %>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-stats"></span>Portfolios</a>
+                    <%= link_to(root_path) do %>
+                        <span class="glyphicon glyphicon-stats"></span>
+                        Portfolios
+                    <% end %>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-list"></span>Securities</a>
+                    <%= link_to(securitys_index_path) do %>
+                        <span class="glyphicon glyphicon-list"></span>
+                        Securities
+                    <% end %>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-comment"></span>Community</a>
                 </li>
                 <li>
                     <a href="#"><span class="glyphicon glyphicon-transfer"></span>External Transactions</a>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-time"></span>History</a>
+                    <%= link_to(help_path) do %>
+                        <span class="glyphicon glyphicon-cog"></span>Settings
+                    <% end %>
                 </li>
                 <li>
-                    <a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a>
-                </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-info-sign"></span>Help</a>
+                    <%= link_to(help_path) do %>
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        Help
+                    <% end %>
                 </li>
             </ul>
         </div>
@@ -159,7 +232,7 @@
     				Customer Portal
     			</h4>
     			<a href="#">FAQs</a>
-    			<a href="#">Customer Agreement</a>
+                <%= link_to "Customer Agreement", useragreement_path %>
     			<a href="#">Need help?</a>
     			<a href="#">Feedback</a>
     			<a href="#">Urgent assistance</a>
@@ -175,10 +248,10 @@
     			<h4>
     				Connect With Us
     			</h4>
-                <a href="#"><i class="fa fa-facebook-square"></i></a>
-                <a href="#"><i class="fa fa-twitter-square"></i></a>
-                <a href="#"><i class="fa fa-youtube-square"></i></a>
-                <a href="#"><i class="fa fa-envelope-square"></i></a>
+                <a href="https://www.facebook.com"><i class="fa fa-facebook-square"></i></a>
+                <a href="https://www.twitter.com"><i class="fa fa-twitter-square"></i></a>
+                <a href="https://www.youtube.com"><i class="fa fa-youtube-square"></i></a>
+                <a href="https://google.com"><i class="fa fa-envelope-square"></i></a>
 
     			<% if logged_in? %>
     			<p>Copyright 2017 Allocan Financial Services Pty Ltd.</p>

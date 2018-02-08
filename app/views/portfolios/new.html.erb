@@ -1,13 +1,23 @@
-Ok <%= current_user.name %>, add in the parameters of your new portfolio:
 
-<h1>Create a new portfolio</h1>
-<%= form_for(:newPortfolio) do |f| %>
-	Title:
-	<%= f.text_field :title %><br>
-	Description:
-	<%= f.text_field :description %><br>
-	Initial allocation:
-	<%= f.text_field :initial %><br>
 
-	<%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+<div class="formSquare" id="newPortfolio" >
+
+	<h1 class="myHeader">Create a new portfolio</h1>
+
+		<p>
+			Hi <%= ((current_user.name).split)[0] %>, create your new portfolio here. Then you can start buying and selling securities.
+		</p>
+
+	<%= form_for(:newPortfolio) do |f| %>
+		<b>Title:</b><br />
+		<%= f.text_field :title, class: 'form-control' %><br />
+		<b>Description:</b><br />
+		<%= f.text_field :description, class: 'form-control' %><br />
+		<b>Initial cash allocation:</b><br />
+		<%= f.text_field :initial, class: 'form-control' %><br />
+
+		<%= f.submit "Create", class: "myButton" %><br>
+
+	<% end %>
+
+</div>

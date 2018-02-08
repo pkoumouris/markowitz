@@ -1,7 +1,16 @@
-<h1>Forgot password </h1>
-<%= form_for(:password_reset, url: password_resets_path) do |f| %>
-	<%= f.label :email %>
-	<%= f.email_field :email, class: 'form-control' %>
-	<br>
-	<%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+<div id="forgotPasswordSquare">
+	<h1 class="myHeader">Forgot password</h1>
+	<p>
+		Enter your email, and we will reset your password via email.
+	</p>
+	<%= form_for(:password_reset, url: password_resets_path) do |f| %>
+		<%= f.label :email %>
+		<%= f.email_field :email, class: 'form-control' %>
+		<br>
+		<%= f.submit "Submit", class: "myButton" %>
+	<% end %>
+	<p>
+		<b>Not working or can't remember your email?</b>
+		<%= link_to "Contact Us", about_path %>
+	</p>
+</div>
